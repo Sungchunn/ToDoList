@@ -12,6 +12,9 @@ target/
 *.iml
 *.ipr
 *.env
+.idea
+tomcat.8082
+target
 
 ### Eclipse ###
 .apt_generated
