@@ -14,7 +14,7 @@ public class Webapp extends SscAssignment {
         TomcatEnvironment.init();
         Tomcat tomcat = new Tomcat();
         tomcat.setBaseDir(TomcatEnvironment.getWorkDir().getAbsolutePath());
-        tomcat.setPort(80);
+        tomcat.setPort(8082);
         tomcat.getConnector();
 
         SecurityService securityService = new SecurityService();

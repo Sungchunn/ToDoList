@@ -1,8 +1,7 @@
 package io.muzoo.ssc.webapp.servlet;
 
-import io.muzoo.ssc.webapp.service.SecurityService;
-import java.io.IOException;
 import io.muzoo.ssc.webapp.Routable;
+import io.muzoo.ssc.webapp.service.SecurityService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -10,42 +9,48 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.IOException;
+
 public class LoginServlet extends HttpServlet implements Routable {
 
     private SecurityService securityService;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/login.jsp");
-        rd.include(request, response);
+        forwardToLogin(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // do login post logic
-        // extract username and password from request
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        if (!StringUtils.isBlank(username) && !StringUtils.isBlank(password)) {
-            if (securityService.authenticate(username, password, request)) {
-                response.sendRedirect("/");
-            } else {
-                String error = "Wrong username or password.";
-                request.setAttribute("error", error);
-                RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/login.jsp");
-                rd.include(request, response);
-            }
+        if (isNotBlank(username) && isNotBlank(password)) {
+            processAuthentication(username, password, request, response);
         } else {
-            String error = "Username or password is missing.";
-            request.setAttribute("error", error);
-            RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/login.jsp");
-            rd.include(request, response);
+            setErrorAttributeAndForwardToLogin("Please fill out all fields", request, response);
         }
+    }
 
-        // check username and password against database
-        // if valid then set username attribute to session via securityService
-        // else put error message to render error on the login form
+    private void processAuthentication(String username, String password, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        if (securityService.authenticate(username, password, request)) {
+            response.sendRedirect("/");
+        } else {
+            setErrorAttributeAndForwardToLogin("Wrong username or password.", request, response);
+        }
+    }
 
+    private void setErrorAttributeAndForwardToLogin(String error, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("error", error);
+        forwardToLogin(request, response);
+    }
+
+    private void forwardToLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/login.jsp");
+        rd.include(request, response);
+    }
+
+    private boolean isNotBlank(String input) {
+        return !StringUtils.isBlank(input);
     }
 
     @Override
@@ -58,3 +63,4 @@ public class LoginServlet extends HttpServlet implements Routable {
         this.securityService = securityService;
     }
 }
+

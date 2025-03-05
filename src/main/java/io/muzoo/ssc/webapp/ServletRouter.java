@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  *
- * @author SungChun
+ * @author gigadot
  */
 public class ServletRouter {
 

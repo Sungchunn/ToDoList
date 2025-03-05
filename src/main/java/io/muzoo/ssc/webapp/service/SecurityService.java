@@ -6,13 +6,14 @@ import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
- * @author SungChun
+ * @author gigadot
  */
 public class SecurityService {
 
     private UserService userService;
 
     public void setUserService(UserService userService) {
+
         this.userService = userService;
     }
 
