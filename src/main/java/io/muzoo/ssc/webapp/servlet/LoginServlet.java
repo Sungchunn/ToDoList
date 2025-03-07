@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet implements Routable {
 
     private void processAuthentication(String username, String password, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         if (securityService.authenticate(username, password, request)) {
-            response.sendRedirect("/");
+            response.sendRedirect("/todo");  // Redirect to todo page
         } else {
             setErrorAttributeAndForwardToLogin("Wrong username or password.", request, response);
         }

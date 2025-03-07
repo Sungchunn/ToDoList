@@ -141,7 +141,7 @@ public class UserService {
     public static void main(String[] args) {
         UserService userService = UserService.getInstance();
         try {
-            userService.createUser("dan", "0224","Dan");
+            userService.createUser("admin10", "1234","Admin");
         } catch (UserServiceException e) {
             e.printStackTrace();
         }

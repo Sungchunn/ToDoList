@@ -30,7 +30,7 @@ public class Webapp extends SscAssignment {
 
             ErrorPage error404Page = new ErrorPage();
             error404Page.setErrorCode(404);
-            error404Page.setLocation("/WEB-INF/error404.jsp");
+            error404Page.setLocation("/todo");
             ctx.addErrorPage(error404Page);
 
             tomcat.start();

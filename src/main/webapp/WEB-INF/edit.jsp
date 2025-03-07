@@ -38,17 +38,17 @@
 
     <div class="row justify-content-md-center">
         <div class="col-sm-12 col-md-6 col-lg-4 mt-5">
-            <h3 class="text-center mb-4">Edit User (${username})</h3>
-            <p>${error}</p>
-            <form action="/user/edit?username=${username}" method="post" autocomplete="off">
-                <div class="input-group mb-3 input-group-md">
-                    <span class="input-group-text" id="displayName" style="width: 38px"><i class="fa fa-user"></i></span>
-                    <input type="text" class="form-control" name="displayName" placeholder="Display Name" aria-label="displayName" aria-describedby="displayName" autocomplete="off" value="${displayName}">
-                </div>
-                <div class="d-grid gap-2">
-                    <button class="btn btn-success" type="submit"><i class="fa fa-save"></i> &nbsp; Save</button>
-                </div>
-            </form>
+                <h3 class="text-center mb-4">Edit User (${username})</h3>
+                <p>${error}</p>
+                <form action="/user/edit?username=${username}" method="post" autocomplete="off">
+                    <div class="input-group mb-3 input-group-md">
+                        <span class="input-group-text" id="displayName" style="width: 38px"><i class="fa fa-user"></i></span>
+                        <input type="text" class="form-control" name="displayName" placeholder="Display Name" aria-label="displayName" aria-describedby="displayName" autocomplete="off" value="${displayName}">
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-success" type="submit"><i class="fa fa-save"></i> &nbsp; Save</button>
+                    </div>
+                </form>
         </div>
     </div>
 
