@@ -69,20 +69,42 @@ public class TodoServlet extends HttpServlet implements Routable {
 
         try {
             if ("add".equals(action)) {
+                // Get new fields
                 String task = req.getParameter("task");
-                todoService.addTodo(userId, task);
+                String description = req.getParameter("description");
+                String dueDateStr = req.getParameter("dueDate");
+
+                // Convert dueDateStr to java.sql.Date (or null if empty)
+                java.sql.Date dueDate = null;
+                if (dueDateStr != null && !dueDateStr.isEmpty()) {
+                    dueDate = java.sql.Date.valueOf(dueDateStr);
+                }
+
+                todoService.addTodo(userId, task, description, dueDate);
+
             } else if ("delete".equals(action)) {
                 int todoId = Integer.parseInt(idStr);
                 todoService.deleteTodo(userId, todoId);
-            } else if ("toggle".equals(action)) {  // New toggle function
+
+            } else if ("toggle".equals(action)) {
                 int todoId = Integer.parseInt(idStr);
                 todoService.toggleComplete(userId, todoId);
+
             } else if ("edit".equals(action)) {
                 int todoId = Integer.parseInt(idStr);
                 String updatedTask = req.getParameter("task");
-                todoService.updateTodo(userId, todoId, updatedTask);
+                String updatedDescription = req.getParameter("description");
+                String updatedDueDateStr = req.getParameter("dueDate");
+
+                java.sql.Date updatedDueDate = null;
+                if (updatedDueDateStr != null && !updatedDueDateStr.isEmpty()) {
+                    updatedDueDate = java.sql.Date.valueOf(updatedDueDateStr);
+                }
+
+                todoService.updateTodo(userId, todoId, updatedTask, updatedDescription, updatedDueDate);
             }
             resp.sendRedirect("/todo");
+
         } catch (NumberFormatException e) {
             throw new ServletException("Invalid id format: " + idStr, e);
         } catch (SQLException e) {

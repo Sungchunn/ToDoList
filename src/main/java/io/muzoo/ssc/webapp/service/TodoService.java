@@ -1,19 +1,31 @@
 package io.muzoo.ssc.webapp.service;
 
 import io.muzoo.ssc.webapp.model.Todo;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TodoService {
 
-    // Match your existing columns: "title" and "is_completed" instead of "task" and "completed"
+    // Updated queries to include description and due_date
     private static final String INSERT_TODO_SQL =
-            "INSERT INTO todos (user_id, title, is_completed) VALUES (?, ?, FALSE);";
+            "INSERT INTO todos (user_id, title, description, due_date, is_completed) " +
+                    "VALUES (?, ?, ?, ?, FALSE);";
+
     private static final String DELETE_TODO_SQL =
             "DELETE FROM todos WHERE id=? AND user_id=?;";
+
     private static final String SELECT_TODOS_SQL =
             "SELECT * FROM todos WHERE user_id=?;";
+
+    private static final String UPDATE_TODO_SQL =
+            "UPDATE todos SET title = ?, description = ?, due_date = ? " +
+                    "WHERE id = ? AND user_id = ?;";
+
+    private static final String TOGGLE_TODO_SQL =
+            "UPDATE todos SET is_completed = NOT is_completed " +
+                    "WHERE id = ? AND user_id = ?;";
 
     private DatabaseConnectionService databaseConnectionService;
 
@@ -21,27 +33,18 @@ public class TodoService {
         this.databaseConnectionService = DatabaseConnectionService.getInstance();
     }
 
-    /**
-     * Adds a new Todo item for the given user.
-     * @param userId the user who owns this todo
-     * @param title the title (task name) of the todo
-     */
-    public void addTodo(int userId, String title) throws SQLException {
+    public void addTodo(int userId, String title, String description, Date dueDate) throws SQLException {
         try (Connection conn = databaseConnectionService.getConnection();
              PreparedStatement ps = conn.prepareStatement(INSERT_TODO_SQL)) {
             ps.setInt(1, userId);
             ps.setString(2, title);
+            ps.setString(3, description);
+            ps.setDate(4, dueDate);  // or ps.setNull(4, Types.DATE) if no date
             ps.executeUpdate();
             conn.commit();
         }
     }
 
-    /**
-     * Deletes a Todo item by its ID and the user who owns it.
-     * @param userId the ID of the user
-     * @param todoId the ID of the todo
-     * @return true if deleted, false if not found
-     */
     public boolean deleteTodo(int userId, int todoId) throws SQLException {
         try (Connection conn = databaseConnectionService.getConnection();
              PreparedStatement ps = conn.prepareStatement(DELETE_TODO_SQL)) {
@@ -53,11 +56,6 @@ public class TodoService {
         }
     }
 
-    /**
-     * Retrieves all Todo items for the given user.
-     * @param userId the ID of the user
-     * @return a list of Todo objects
-     */
     public List<Todo> getTodos(int userId) throws SQLException {
         List<Todo> todos = new ArrayList<>();
         try (Connection conn = databaseConnectionService.getConnection();
@@ -65,26 +63,23 @@ public class TodoService {
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                todos.add(new Todo(
+                Todo todo = new Todo(
                         rs.getInt("id"),
                         rs.getInt("user_id"),
-                        rs.getString("title"),
+                        rs.getString("title"),      // or "task"
+                        rs.getString("description"),
+                        rs.getDate("due_date"),
                         rs.getBoolean("is_completed")
-                ));
+                );
+                todos.add(todo);
             }
         }
         return todos;
     }
 
-    /**
-     * Toggles the "is_completed" status of a Todo item.
-     * @param userId the ID of the user
-     * @param todoId the ID of the todo
-     */
     public void toggleComplete(int userId, int todoId) throws SQLException {
-        String sql = "UPDATE todos SET is_completed = NOT is_completed WHERE id = ? AND user_id = ?";
         try (Connection conn = databaseConnectionService.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(TOGGLE_TODO_SQL)) {
             ps.setInt(1, todoId);
             ps.setInt(2, userId);
             ps.executeUpdate();
@@ -92,19 +87,14 @@ public class TodoService {
         }
     }
 
-    /**
-     * Updates the title (task name) of a Todo item.
-     * @param userId the ID of the user
-     * @param todoId the ID of the todo
-     * @param newTitle the new title for the todo
-     */
-    public void updateTodo(int userId, int todoId, String newTitle) throws SQLException {
-        String sql = "UPDATE todos SET title = ? WHERE id = ? AND user_id = ?";
+    public void updateTodo(int userId, int todoId, String newTitle, String newDescription, Date newDueDate) throws SQLException {
         try (Connection conn = databaseConnectionService.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(UPDATE_TODO_SQL)) {
             ps.setString(1, newTitle);
-            ps.setInt(2, todoId);
-            ps.setInt(3, userId);
+            ps.setString(2, newDescription);
+            ps.setDate(3, newDueDate);
+            ps.setInt(4, todoId);
+            ps.setInt(5, userId);
             ps.executeUpdate();
             conn.commit();
         }

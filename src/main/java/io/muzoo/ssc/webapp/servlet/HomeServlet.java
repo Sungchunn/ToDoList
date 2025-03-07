@@ -24,11 +24,13 @@ public class HomeServlet extends HttpServlet implements Routable {
 
     @Override
     public void setSecurityService(SecurityService securityService) {
+
         this.securityService = securityService;
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         if (securityService.isAuthorized(request)) {
             prepareHomePage(request);
             forwardToPage(request, response, HOME_JSP);
