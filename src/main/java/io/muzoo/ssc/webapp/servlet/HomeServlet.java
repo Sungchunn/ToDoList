@@ -32,10 +32,11 @@ public class HomeServlet extends HttpServlet implements Routable {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (securityService.isAuthorized(request)) {
-            prepareHomePage(request);
-            forwardToPage(request, response, HOME_JSP);
+            // User is logged in => go to /todo
+            response.sendRedirect("/todo");
         } else {
-            redirectToLogin(response);
+            // Not logged in => go to /login
+            response.sendRedirect("/login");
         }
     }
 
