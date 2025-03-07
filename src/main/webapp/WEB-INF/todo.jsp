@@ -7,40 +7,65 @@
 <head>
     <meta charset="UTF-8">
     <title>My Todo List</title>
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
     <style>
-        /* Full-page background */
         body {
             margin: 0;
             padding: 0;
-            min-height: 100vh; /* ensures the body covers full viewport height */
+            min-height: 100vh;
+            /* Use your "ToDoListPage.jpg" or another scenic image */
             background: url("/assets/ToDoListPage.jpg") no-repeat center center fixed;
             background-size: cover;
+            font-family: 'Quicksand', sans-serif;
+            color: #333;
         }
 
-        /* Flex container to center or position the main box */
         .todo-container {
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* change to 'center' if you want vertical centering */
+            align-items: flex-start; /* or center if you prefer vertical centering */
             min-height: 100vh;
             padding: 2rem;
         }
 
-        /* Semi-transparent box for the todo content */
         .todo-box {
-            background-color: rgba(255, 255, 255, 0.85); /* 85% opaque white */
-            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(2px);
+            border-radius: 12px;
             max-width: 1200px;
             width: 100%;
             padding: 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background-color: #5B8C5A;
+            border-color: #5B8C5A;
+        }
+        .btn-primary:hover {
+            background-color: #4c774b;
+            border-color: #4c774b;
+        }
+
+        .badge.bg-warning {
+            background-color: #E0B084 !important; /* Warm accent for 'Pending' */
         }
     </style>
 </head>
 <body>
 <div class="todo-container">
-    <div class="todo-box shadow">
+    <div class="todo-box">
         <!-- NAVBAR -->
         <nav class="navbar bg-body-tertiary mb-4">
             <div class="container-fluid">

@@ -1,42 +1,62 @@
-
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Login</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
-        /* Make the background image cover the entire screen */
         body {
-            /* Update this path if your background image is located elsewhere */
-            background: url("/assets/background.jpg") no-repeat center center fixed;
-            background-size: cover;
-            height: 100vh; /* ensures body covers full viewport height */
             margin: 0;
             padding: 0;
+            min-height: 100vh;
+            /* Background image: adjust path or name as needed */
+            background: url("/assets/background.jpg") no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Quicksand', sans-serif;
+            color: #333;
         }
 
-        /* Center the login form vertically and horizontally */
         .login-container {
-            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
         }
 
-        /* Semi-transparent background for the login box */
         .login-box {
-            background-color: rgba(255, 255, 255, 0.8); /* 0.8 = 80% opaque */
-            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(2px); /* subtle blur for modern feel (if supported) */
+            border-radius: 12px;
             padding: 2rem;
             max-width: 400px;
             width: 100%;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background-color: #5B8C5A;
+            border-color: #5B8C5A;
+        }
+        .btn-primary:hover {
+            background-color: #4c774b;
+            border-color: #4c774b;
         }
     </style>
 </head>
 <body>
-<div class="container d-flex justify-content-center align-items-center login-container">
+<div class="login-container">
     <div class="login-box">
         <h2 class="text-center mb-4">Login</h2>
 
@@ -69,17 +89,19 @@
                        class="form-control"
                        required>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Login</button>
+            <button type="submit" class="btn btn-primary w-100 mt-2">Login</button>
         </form>
 
         <p class="mt-3 text-center">
             Don't have an account?
-            <a href="/register" class="btn btn-success btn-sm">Register</a>
+            <a href="/register" class="text-decoration-none" style="color: #E0B084;">
+                Register here
+            </a>
         </p>
     </div>
 </div>
 
-<!-- Bootstrap JS (Optional, for certain components) -->
+<!-- Bootstrap JS (optional for certain components) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
