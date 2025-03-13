@@ -13,6 +13,14 @@
     </properties>
     <dependencies>
         <dependency>
+<<<<<<< HEAD
+=======
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.5.4</version> <!-- or the latest version -->
+        </dependency>
+        <dependency>
+>>>>>>> 12d3b58 (update to use postgreSQL to deploy on Heroku)
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <version>6.0.0</version>

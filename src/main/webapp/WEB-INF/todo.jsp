@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>My Todo List</title>
+<<<<<<< HEAD
     <!-- Bootstrap CSS -->
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -31,10 +32,30 @@
             display: flex;
             justify-content: center;
             align-items: flex-start; /* or center if you prefer vertical centering */
+=======
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        /* Full-page background */
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh; /* ensures the body covers full viewport height */
+            background: url("/assets/ToDoListPage.jpg") no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        /* Flex container to center or position the main box */
+        .todo-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* change to 'center' if you want vertical centering */
+>>>>>>> 12d3b58 (update to use postgreSQL to deploy on Heroku)
             min-height: 100vh;
             padding: 2rem;
         }
 
+<<<<<<< HEAD
         .todo-box {
             background-color: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(2px);
@@ -60,12 +81,25 @@
 
         .badge.bg-warning {
             background-color: #E0B084 !important; /* Warm accent for 'Pending' */
+=======
+        /* Semi-transparent box for the todo content */
+        .todo-box {
+            background-color: rgba(255, 255, 255, 0.85); /* 85% opaque white */
+            border-radius: 10px;
+            max-width: 1200px;
+            width: 100%;
+            padding: 2rem;
+>>>>>>> 12d3b58 (update to use postgreSQL to deploy on Heroku)
         }
     </style>
 </head>
 <body>
 <div class="todo-container">
+<<<<<<< HEAD
     <div class="todo-box">
+=======
+    <div class="todo-box shadow">
+>>>>>>> 12d3b58 (update to use postgreSQL to deploy on Heroku)
         <!-- NAVBAR -->
         <nav class="navbar bg-body-tertiary mb-4">
             <div class="container-fluid">

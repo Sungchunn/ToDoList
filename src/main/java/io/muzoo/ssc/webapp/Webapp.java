@@ -14,7 +14,11 @@ public class Webapp extends SscAssignment {
         TomcatEnvironment.init();
         Tomcat tomcat = new Tomcat();
         tomcat.setBaseDir(TomcatEnvironment.getWorkDir().getAbsolutePath());
+<<<<<<< HEAD
         tomcat.setPort(8082);
+=======
+        tomcat.setPort(8080); // set port
+>>>>>>> 12d3b58 (update to use postgreSQL to deploy on Heroku)
         tomcat.getConnector();
 
         SecurityService securityService = new SecurityService();
