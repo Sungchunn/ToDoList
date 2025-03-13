@@ -19,15 +19,10 @@ public class ServletRouter {
 
     static {
         routables.add(TodoServlet.class);
-<<<<<<< HEAD
-        routables.add(DeleteUserServlet.class);
-        routables.add(CreateUserServlet.class);
-        routables.add(EditUserServlet.class);
-=======
+
         routables.add(DeleteTodoServlet.class);
         routables.add(CreateTodoServlet.class);
         routables.add(EditTodoServlet.class);
->>>>>>> 12d3b58 (update to use postgreSQL to deploy on Heroku)
         routables.add(ChangePasswordServlet.class);
         routables.add(LoginServlet.class);
         routables.add(LogoutServlet.class);

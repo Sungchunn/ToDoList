@@ -45,12 +45,7 @@ public class UserService {
             ps.setString(3, displayName);
             ps.executeUpdate();
             conn.commit();
-<<<<<<< HEAD
-        } catch (SQLIntegrityConstraintViolationException e) {
-            throw new UserServiceException(String.format("Username %s already exists", username));
-        } catch (SQLException throwables) {
-            throw new UserServiceException(throwables.getMessage());
-=======
+
         } catch (SQLException e) {
             // Unique violation in PostgreSQL
             if ("23505".equals(e.getSQLState())) {
@@ -58,7 +53,6 @@ public class UserService {
             } else {
                 throw new UserServiceException(e.getMessage());
             }
->>>>>>> 12d3b58 (update to use postgreSQL to deploy on Heroku)
         }
     }
 
